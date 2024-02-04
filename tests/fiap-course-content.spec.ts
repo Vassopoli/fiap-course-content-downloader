@@ -39,7 +39,7 @@ test('crawling fiap course content', async ({ page }) => {
   }
   console.log("All subjects expanded");
 
-  await delay(500); // <-- prevent loading screen, that also count as image, to mess the indexes
+  await delay(1000); // <-- prevent loading screen, that also count as image, to mess the indexes
 
   //Now that the groups inside subjects appear, iterate over all images to expand those plus signs to expand the list of course content.
   var images = await page.locator('img').all(); //Filter by src="./login/alunos_2004/apostilas_2007/mais.gif"
@@ -48,7 +48,7 @@ test('crawling fiap course content', async ({ page }) => {
 
     if (srcAttribute?.includes("login/alunos_2004/apostilas_2007/mais.gif")) {
       await i.click();
-      await delay(500); // <-- prevent loading screen, that also count as image, to mess the indexes
+      await delay(1000); // <-- prevent loading screen, that also count as image, to mess the indexes
     }
   }
   console.log("Pending subgroups expanded");
