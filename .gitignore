@@ -1,0 +1,9 @@
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+evidences
+fiap-course-content
+.env
+playwright/.auth/session.json

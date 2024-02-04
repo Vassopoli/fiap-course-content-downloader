@@ -1,0 +1,1 @@
+npx playwright test && ./s3-sync.sh
