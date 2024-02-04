@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 
-test('crawling fiap course content', async ({ page }) => {
+test('scraping fiap course content', async ({ page }) => {
   test.setTimeout(120000); //2 minutes
 
   await page.goto(process.env.FIAP_URL + '/programas/login/alunos_2004/apostilas_2007/default.asp?titulo_secao=Apostilas');
