@@ -5,5 +5,6 @@ node_modules/
 /playwright/.cache/
 evidences
 fiap-course-content
-.env
 playwright/.auth/session.json
+.env
+.DS_Store
