@@ -17,5 +17,5 @@
 
 4. Sync those files with S3 bucket
     ```bash
-    aws s3 sync fiap-course-content ${AWS_FIAP_BUCKET}/fiap-course-content
+    aws s3 sync fiap-course-content ${AWS_FIAP_BUCKET}/fiap-course-content --size-only
     ```

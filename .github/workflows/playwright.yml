@@ -39,4 +39,4 @@ jobs:
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         aws-region: us-east-1
     - name: Sync with S3
-      run: aws s3 sync fiap-course-content ${{ secrets.AWS_FIAP_BUCKET }}/fiap-course-content
+      run: aws s3 sync fiap-course-content ${{ secrets.AWS_FIAP_BUCKET }}/fiap-course-content --size-only
