@@ -23,20 +23,33 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
+    - name: Load secret
+      uses: 1password/load-secrets-action@v1
+      with:
+        export-env: true
+      env:
+        OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+        AWS_ROLE_TO_ASSUME: op://Service Account Vault/IAM Role DeployFiapCourseContentDownloader/credential
+        AWS_FIAP_BUCKET: op://Service Account Vault/S3 Bucket Fiap Course Content/hostname
+        FIAP_URL: op://Service Account Vault/Fiap/website
+        FIAP_CLASS_NAME: op://Service Account Vault/Fiap/classname
+        FIAP_USERNAME: op://Service Account Vault/Fiap/username
+        FIAP_PASSWORD: op://Service Account Vault/Fiap/password
+
     - name: create env file
       run: |
         touch .env
-        echo FIAP_URL=${{ vars.FIAP_URL }} >> .env
-        echo FIAP_CLASS_NAME=${{ secrets.FIAP_CLASS_NAME }} >> .env
-        echo FIAP_USERNAME=${{ secrets.FIAP_USERNAME }} >> .env
-        echo FIAP_PASSWORD=${{ secrets.FIAP_PASSWORD }} >> .env
+        echo FIAP_URL=${{ env.FIAP_URL }} >> .env
+        echo FIAP_CLASS_NAME=${{ env.FIAP_CLASS_NAME }} >> .env
+        echo FIAP_USERNAME=${{ env.FIAP_USERNAME }} >> .env
+        echo FIAP_PASSWORD=${{ env.FIAP_PASSWORD }} >> .env
 
     - name: Run Playwright tests
       run: npx playwright test
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
         aws-region: us-east-1
     - name: Sync with S3
-      run: aws s3 sync fiap-course-content ${{ secrets.AWS_FIAP_BUCKET }}/fiap-course-content --size-only
+      run: aws s3 sync fiap-course-content ${{ env.AWS_FIAP_BUCKET }}/fiap-course-content --size-only
